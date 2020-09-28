@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
-  const storedTravels = window.localStorage.getItem('travels') !== '' ? JSON.parse(window.localStorage.getItem('travels')) : [];
+  const lsTravels = window.localStorage.getItem('travels');
+  const storedTravels = (lsTravels && lsTravels !== null && lsTravels !== undefined && lsTravels !== '') ? JSON.parse(window.localStorage.getItem('travels')) : [];
   const [travels, addTravel] = useState(storedTravels);
   const [travelDate, setTravelDate] = useState('26/set/2020');
   const [material, setMaterial] = useState('pedra');
