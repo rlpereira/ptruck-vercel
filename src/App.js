@@ -14,6 +14,11 @@ function App() {
     window.localStorage.setItem('travels', JSON.stringify(travels))
   }, [travels]);
 
+  function handleTravelDateChange(ev) {
+    const value = ev.currentTarget.value;
+    setTravelDate(value);
+  }
+
   function handleWeightChange(ev) {
     const value = ev.currentTarget.value;
     setWeight(value);
@@ -59,12 +64,6 @@ function App() {
         <li>
           <table>
             <tbody>
-              <tr>
-                <td>01/Ago/2020</td>
-                <td>Pedra</td>
-                <td>22300</td>
-                <td>R$ {22.300*21.30}</td>
-              </tr>
               {
                 travels.map((travel, index) => {
                   const price = travel.material === 'pedra' ? 0.02130 : 0.019;
@@ -73,7 +72,7 @@ function App() {
                       <td>{travel.travelDate}</td>
                       <td>{travel.material}</td>
                       <td>{travel.weight}</td>
-                      <td>R$ {travel.weight * price}</td>
+                      <td>R$ {Number(travel.weight * price).toFixed(2)}</td>
                     </tr>
                   )
                 })
@@ -85,10 +84,10 @@ function App() {
       <h2>
         Registrar viagem:
       </h2>
-      <form action="POST" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>data</label>
-          <input type="text" defaultValue={travelDate} />
+          <input type="text" defaultValue={travelDate} onChange={handleTravelDateChange} />
         </div>
         <div className="form-group">
         <label>material</label>
